@@ -12,6 +12,7 @@ import {
   MeshNormalMaterial,
   MeshBasicMaterial,
   MeshPhysicalMaterial,
+  DoubleSide,
 } from "three";
 // import Polyhedron from "./Polyhedron";
 
@@ -62,6 +63,9 @@ const App = () => {
             color: 0xffff00,
             metalness: 0.5,
             // depthWrite: false,
+            side: DoubleSide,
+            transparent: true,
+            opacity: 0.5,
           })
         }
         rotation-x={Math.PI / 2}
