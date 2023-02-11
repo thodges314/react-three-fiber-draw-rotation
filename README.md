@@ -1,4 +1,3 @@
-# react-three-fiber-boilerplate
+# react-three-fiber-draw-rotation
 
-Create a new repo, then:
-`git remote set-url origin _thodges314/newProject.git_`
+New project from existing boilerplate to render solids of rotation and demonstrate finding volume
