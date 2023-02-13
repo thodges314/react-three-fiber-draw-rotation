@@ -11,6 +11,7 @@ import {
   MeshStandardMaterial,
   MeshNormalMaterial,
   MeshBasicMaterial,
+  MeshPhongMaterial,
   MeshPhysicalMaterial,
   DoubleSide,
 } from "three";
@@ -50,48 +51,24 @@ const App = () => {
   // const pB = useControls("Polyhedron B", options);
   return (
     <Canvas camera={{ position: [-6, 0, 0] }}>
-      {/* <Environment files="./img/StudioHDR_2_StarField_01_1080.hdr" background /> */}
-      {/* <Environment files="./img/nebula-01-low.hdr" background /> */}
-      {/* <Environment files="./img/Milkyway_Light.hdr" background /> */}
       <Environment
         files="./img/industrial_sunset_02_puresky_1k.hdr"
         background
       />
       <mesh
         material={
-          new MeshPhysicalMaterial({
-            color: 0xffff00,
-            metalness: 0.5,
-            // depthWrite: false,
+          new MeshNormalMaterial({
             side: DoubleSide,
             transparent: true,
             opacity: 0.5,
           })
         }
-        rotation-x={Math.PI / 2}
+        // rotation-x={Math.PI / 2}
+        rotation-z={-Math.PI / 2}
         geometry={new LatheGeometry(points, 300)}
-      >
-        {/* <latheGeometry args={[points, 300]} /> */}
-        {/* <MeshStandardMaterial /> */}
-      </mesh>
-      {/* <Polyhedron
-        position={[-1, 1, 0]}
-        rotation={[pA.x, pA.y, pA.z]}
-        visible={pA.visible}
-        color={pA.color}
-        polyhedreon={polyhedron}
-      />
-      <Polyhedron
-        position={[1, 1, 0]}
-        rotation={[pB.x, pB.y, pB.z]}
-        visible={pB.visible}
-        color={pB.color}
-        polyhedreon={polyhedron}
-      /> */}
-
+      ></mesh>
       <OrbitControls />
       <axesHelper args={[6]} />
-      {/* <gridHelper /> */}
       <Stats />
     </Canvas>
   );
