@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { Stats, OrbitControls, Environment } from "@react-three/drei";
 import { useControls } from "leva";
 import { Vector2 } from "three";
-import { Axes, RotationObject } from "./components";
+import { Axes, Disc, RotationObject } from "./components";
 
 const App = () => {
   const points = [];
@@ -12,7 +12,7 @@ const App = () => {
   const numberPoints = 75;
   const dx = (end - start) / numberPoints;
   const func = (x) => x ** 3 - 7 * x ** 2 + 14 * x - 5;
-  for (let i = 0; i < numberPoints; i++) {
+  for (let i = 0; i <= numberPoints; i++) {
     const x = start + i * dx;
     points.push(new Vector2(func(x), x));
   }
@@ -30,6 +30,7 @@ const App = () => {
 
   // const pA = useControls("Polyhedron A", options);
   // const pB = useControls("Polyhedron B", options);
+  console.log(points);
   return (
     <Canvas camera={{ position: [0, 0, 10] }}>
       <Environment
@@ -37,6 +38,7 @@ const App = () => {
         background
       />
       <RotationObject points={points} />
+      <Disc renderFunction={func} limits={[1, 4]} />
       <OrbitControls />
       <Axes />
       <Stats />

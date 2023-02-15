@@ -1,4 +1,9 @@
-import { DoubleSide, LatheGeometry, MeshNormalMaterial } from "three";
+import {
+  DoubleSide,
+  LatheGeometry,
+  MeshNormalMaterial,
+  MeshNormalMaterialParameters,
+} from "three";
 
 const RotationObject = ({
   points = [],
@@ -15,8 +20,9 @@ const RotationObject = ({
       })
     }
     rotation-z={-Math.PI / 2}
-    geometry={new LatheGeometry(points, sides)}
-  ></mesh>
+  >
+    <latheGeometry args={[points, sides]} />
+  </mesh>
 );
 
 export default RotationObject;
