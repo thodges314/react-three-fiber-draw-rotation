@@ -1,9 +1,4 @@
-import {
-  DoubleSide,
-  LatheGeometry,
-  MeshNormalMaterial,
-  MeshNormalMaterialParameters,
-} from "three";
+import { DoubleSide, MeshNormalMaterial } from "three";
 
 const RotationObject = ({
   points = [],

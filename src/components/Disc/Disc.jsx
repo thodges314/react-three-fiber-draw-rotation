@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useControls } from "leva";
 import { DoubleSide, MeshBasicMaterial } from "three";
+import Line from "./Line";
 
 const Disc = ({ renderFunction = (x) => x, limits = [0, 10], sides = 300 }) => {
   const options = useMemo(
@@ -17,18 +18,25 @@ const Disc = ({ renderFunction = (x) => x, limits = [0, 10], sides = 300 }) => {
   const controls = useControls(options);
 
   return (
-    <mesh
-      material={
-        new MeshBasicMaterial({
-          side: DoubleSide,
-          color: 0x5a5a5a,
-        })
-      }
-      rotation-y={-Math.PI / 2}
-      position-x={controls.x}
-    >
-      <circleGeometry args={[renderFunction(controls.x), sides]} />
-    </mesh>
+    <>
+      <mesh
+        material={
+          new MeshBasicMaterial({
+            side: DoubleSide,
+            color: 0x5a5a5a,
+          })
+        }
+        rotation-y={-Math.PI / 2}
+        position-x={controls.x}
+      >
+        <circleGeometry args={[renderFunction(controls.x), sides]} />
+      </mesh>
+      <Line
+        start={[controls.x, 0, 0]}
+        end={[controls.x, renderFunction(controls.x), 0]}
+        label="doip"
+      />
+    </>
   );
 };
 
