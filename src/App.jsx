@@ -14,9 +14,12 @@ import {
   MeshPhongMaterial,
   MeshPhysicalMaterial,
   DoubleSide,
+  PerspectiveCamera,
 } from "three";
+import { Axes } from "./components";
 // import Polyhedron from "./Polyhedron";
 
+// const camera = new PerspectiveCamera(
 const App = () => {
   const polyhedron = [
     new BoxGeometry(),
@@ -50,7 +53,7 @@ const App = () => {
   // const pA = useControls("Polyhedron A", options);
   // const pB = useControls("Polyhedron B", options);
   return (
-    <Canvas camera={{ position: [-6, 0, 0] }}>
+    <Canvas camera={{ position: [0, 0, 10] }}>
       <Environment
         files="./img/industrial_sunset_02_puresky_1k.hdr"
         background
@@ -63,12 +66,11 @@ const App = () => {
             opacity: 0.5,
           })
         }
-        // rotation-x={Math.PI / 2}
         rotation-z={-Math.PI / 2}
         geometry={new LatheGeometry(points, 300)}
       ></mesh>
       <OrbitControls />
-      <axesHelper args={[6]} />
+      <Axes />
       <Stats />
     </Canvas>
   );

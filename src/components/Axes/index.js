@@ -1,3 +1,3 @@
 import Axes from "./Axes";
 
-export { Axes };
+export default Axes;
