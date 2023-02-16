@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { DoubleSide, MeshNormalMaterial, Vector2 } from "three";
+import CurveyLine from "./CurveyLine";
 
 const RotationObject = ({
   solid = {
@@ -24,19 +25,23 @@ const RotationObject = ({
   });
 
   return (
-    <mesh
-      material={
-        new MeshNormalMaterial({
-          side: DoubleSide,
-          transparent,
-          opacity,
-        })
-      }
-      rotation-z={-Math.PI / 2}
-      rotation-x={-Math.PI / 2}
-    >
-      <latheGeometry args={[points, sides, 0, Math.PI]} />
-    </mesh>
+    <>
+      <mesh
+        material={
+          new MeshNormalMaterial({
+            side: DoubleSide,
+            transparent,
+            opacity,
+          })
+        }
+        rotation-z={-Math.PI / 2}
+        rotation-x={-Math.PI / 2}
+      >
+        <latheGeometry args={[points, sides, 0, Math.PI]} />
+      </mesh>
+
+      <CurveyLine points={points} />
+    </>
   );
 };
 

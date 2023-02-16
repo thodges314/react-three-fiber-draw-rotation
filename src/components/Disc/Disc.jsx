@@ -41,7 +41,6 @@ const Disc = ({
       <Line
         start={[controls.x, 0, 0]}
         end={[controls.x, solid.func(controls.x), 0]}
-        label="doip"
       />
     </>
   );
