@@ -1,6 +1,7 @@
-import { useMemo } from "react";
-import { DoubleSide, MeshNormalMaterial, Vector2 } from "three";
+import { useMemo, useRef, useEffect, useState } from "react";
+import { DoubleSide, MeshNormalMaterial, Vector2, MathUtils } from "three";
 import CurveyLine from "./CurveyLine";
+import { useFrame } from "@react-three/fiber";
 
 const RotationObject = ({
   solid = {
@@ -11,6 +12,7 @@ const RotationObject = ({
   sides = 90,
   transparent = true,
   opacity = 0.5,
+  threeDee = true,
 }) => {
   const points = useMemo(() => {
     const { domain, func, resolution } = solid;
@@ -37,7 +39,7 @@ const RotationObject = ({
         rotation-z={-Math.PI / 2}
         rotation-x={-Math.PI / 2}
       >
-        <latheGeometry args={[points, sides, 0, Math.PI]} />
+        <latheGeometry args={[points, sides, 0, angle]} ref={latheRef} />
       </mesh>
 
       <CurveyLine points={points} />
