@@ -1,7 +1,8 @@
-import { Fragment, useMemo } from "react";
+import { Fragment, useEffect, useMemo } from "react";
 import { useControls } from "leva";
 import { DoubleSide, MeshBasicMaterial } from "three";
 import Line from "./Line";
+import debounce from "../../utils/debounce";
 
 const Disc = ({
   solid = {
@@ -25,6 +26,16 @@ const Disc = ({
     []
   );
   const controls = useControls(options);
+
+  const debouncedChangeHandler = useMemo(
+    () => debounce(() => console.log("BOUNCE"), 500), // make solid and change to solid
+    []
+  );
+
+  useEffect(() => {
+    console.log("move"); //change to discs
+    debouncedChangeHandler();
+  }, [controls.x]);
 
   const discs = useMemo(() => {
     const discsArray = [];

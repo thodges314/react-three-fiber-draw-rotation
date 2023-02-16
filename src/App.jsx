@@ -31,6 +31,8 @@ const App = () => {
   const { discs, drums, threeDee } = useControls("display options", options);
   return (
     <Canvas camera={{ position: [0, 0, 10] }}>
+      <ambientLight color="#5a5a5a" intensity={0.5} />
+      <directionalLight position={[8, 8, 8]} intensity={0.5} />
       <Environment
         files="./img/industrial_sunset_02_puresky_1k.hdr"
         background

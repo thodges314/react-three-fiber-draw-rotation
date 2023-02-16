@@ -46,9 +46,6 @@ const Drum = ({
 
   return (
     <>
-      <directionalLight position={[8, 8, 8]} intensity={0.5} />
-      <ambientLight color="#5a5a5a" intensity={0.5} />
-
       {drums}
       <Line start={[domain[0], 0, 0]} end={[domain[0], func(domain[0]), 0]} />
       <Line

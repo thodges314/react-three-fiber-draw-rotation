@@ -13,6 +13,7 @@ const RotationObject = ({
   transparent = true,
   opacity = 0.5,
   threeDee = true,
+  normalMaterial = true,
 }) => {
   const points = useMemo(() => {
     const { domain, func, resolution } = solid;
@@ -25,21 +26,25 @@ const RotationObject = ({
     }
     return pts;
   });
-  // useFrame((_, delta) => console.log(delta));
 
   return (
     <>
-      <mesh
-        material={
-          new MeshNormalMaterial({
-            side: DoubleSide,
-            transparent,
-            opacity,
-          })
-        }
-        rotation-z={-Math.PI / 2}
-        rotation-x={-Math.PI / 2}
-      >
+      <mesh rotation-z={-Math.PI / 2} rotation-x={-Math.PI / 2}>
+        {normalMaterial && (
+          <meshNormalMaterial
+            attach="material"
+            side={DoubleSide}
+            transparent={transparent}
+            opacity={opacity}
+          />
+        )}
+        {!normalMaterial && (
+          <meshPhongMaterial
+            attach="material"
+            color="#5a5a5a"
+            side={DoubleSide}
+          />
+        )}
         <latheGeometry args={[points, sides]} />
       </mesh>
 
