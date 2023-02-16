@@ -25,6 +25,7 @@ const RotationObject = ({
     }
     return pts;
   });
+  // useFrame((_, delta) => console.log(delta));
 
   return (
     <>
@@ -39,10 +40,10 @@ const RotationObject = ({
         rotation-z={-Math.PI / 2}
         rotation-x={-Math.PI / 2}
       >
-        <latheGeometry args={[points, sides, 0, angle]} ref={latheRef} />
+        <latheGeometry args={[points, sides]} />
       </mesh>
 
-      <CurveyLine points={points} />
+      {/* <CurveyLine points={points} /> */}
     </>
   );
 };

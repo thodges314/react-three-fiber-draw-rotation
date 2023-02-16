@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import { useControls } from "leva";
 import { DoubleSide, MeshBasicMaterial } from "three";
 import Line from "./Line";
@@ -11,39 +11,42 @@ const Disc = ({
   },
   sides = 90,
 }) => {
+  const { domain, func, resolution } = solid;
+  const step = useMemo(() => 0.1 / resolution);
   const options = useMemo(
     () => ({
       x: {
-        value: solid.domain[0],
-        min: solid.domain[0],
-        max: solid.domain[1],
-        step: 0.1 / solid.resolution,
+        value: domain[0],
+        min: domain[0],
+        max: domain[1],
+        step: step,
       },
     }),
     []
   );
   const controls = useControls(options);
 
-  return (
-    <>
-      <mesh
-        material={
-          new MeshBasicMaterial({
-            side: DoubleSide,
-            color: 0x5a5a5a,
-          })
-        }
-        rotation-y={-Math.PI / 2}
-        position-x={controls.x}
-      >
-        <circleGeometry args={[solid.func(controls.x), sides]} />
-      </mesh>
-      <Line
-        start={[controls.x, 0, 0]}
-        end={[controls.x, solid.func(controls.x), 0]}
-      />
-    </>
-  );
+  const discs = useMemo(() => {
+    const discsArray = [];
+    for (let i = domain[0]; i <= controls.x + step; i += step) {
+      discsArray.push(
+        <Fragment key={i}>
+          <mesh rotation-y={-Math.PI / 2} position-x={i}>
+            <meshBasicMaterial
+              attach="material"
+              color="#5a5a5a"
+              side={DoubleSide}
+            />
+            <circleGeometry args={[func(i), sides]} />
+          </mesh>
+          <Line start={[i, 0, 0]} end={[i, func(i), 0]} />
+        </Fragment>
+      );
+    }
+    return discsArray;
+  }, [controls.x]);
+
+  return <>{discs}</>;
 };
 
 export default Disc;

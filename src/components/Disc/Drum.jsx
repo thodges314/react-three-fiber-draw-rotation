@@ -1,6 +1,7 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, Fragment } from "react";
 import { useControls } from "leva";
 import Line from "./Line";
+import { useFrame } from "@react-three/fiber";
 
 const Drum = ({
   solid = {
@@ -30,14 +31,14 @@ const Drum = ({
     const drumArray = [];
     for (let i = domain[0]; i <= controls.x + step / 2; i += step) {
       drumArray.push(
-        <>
+        <Fragment key={i}>
           <mesh rotation-z={-Math.PI / 2} position-x={i + step / 2}>
             <meshPhongMaterial attach="material" color="#5a5a5a" />
             <cylinderGeometry args={[func(i), func(i), step, sides]} />
           </mesh>
           <Line start={[i, 0, 0]} end={[i, func(i), 0]} />
           <Line start={[i + step, 0, 0]} end={[i + step, func(i), 0]} />
-        </>
+        </Fragment>
       );
     }
     return drumArray;
