@@ -1,3 +1,4 @@
 import Disc from "./Disc";
+import Drum from "./Drum";
 
-export default Disc;
+export { Disc, Drum };

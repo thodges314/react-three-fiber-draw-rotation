@@ -3,14 +3,21 @@ import { useControls } from "leva";
 import { DoubleSide, MeshBasicMaterial } from "three";
 import Line from "./Line";
 
-const Disc = ({ renderFunction = (x) => x, limits = [0, 10], sides = 300 }) => {
+const Disc = ({
+  solid = {
+    domain: [0, 1],
+    func: (x) => x,
+    resolution: 10,
+  },
+  sides = 90,
+}) => {
   const options = useMemo(
     () => ({
       x: {
-        value: limits[0],
-        min: limits[0],
-        max: limits[1],
-        step: (limits[1] - limits[0]) / 256,
+        value: solid.domain[0],
+        min: solid.domain[0],
+        max: solid.domain[1],
+        step: 0.1 / solid.resolution,
       },
     }),
     []
@@ -29,11 +36,11 @@ const Disc = ({ renderFunction = (x) => x, limits = [0, 10], sides = 300 }) => {
         rotation-y={-Math.PI / 2}
         position-x={controls.x}
       >
-        <circleGeometry args={[renderFunction(controls.x), sides]} />
+        <circleGeometry args={[solid.func(controls.x), sides]} />
       </mesh>
       <Line
         start={[controls.x, 0, 0]}
-        end={[controls.x, renderFunction(controls.x), 0]}
+        end={[controls.x, solid.func(controls.x), 0]}
         label="doip"
       />
     </>
