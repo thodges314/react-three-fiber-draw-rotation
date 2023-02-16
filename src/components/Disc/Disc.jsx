@@ -15,7 +15,7 @@ const Disc = ({
   sides = 90,
 }) => {
   const { domain, func, resolution } = solid;
-  const step = useMemo(() => 0.1 / resolution);
+  const step = useMemo(() => 0.2 / resolution);
   const options = useMemo(
     () => ({
       x: {
@@ -34,12 +34,13 @@ const Disc = ({
   const points = useMemo(() => {
     // const { domain, func, resolution } = solid;
     const pts = [];
-    const numberPoints = resolution * (controls.x - domain[0]) + 1;
-    const dx = (controls.x - domain[0]) / (numberPoints - 1);
-    for (let i = 0; i < numberPoints; i++) {
-      const x = domain[0] + i * dx;
-      pts.push(new Vector2(func(x), x));
+    // const numberPoints = resolution * (controls.x - domain[0]);
+    // const dx = (controls.x - domain[0]) / numberPoints;
+    const dx = 0.2 / resolution;
+    for (let i = domain[0]; i <= controls.x; i += dx) {
+      pts.push(new Vector2(func(i), i));
     }
+    // pts.push(new Vector2(func(controls.x), controls.x));
     return pts;
   }, [controls.x]);
 
@@ -69,14 +70,13 @@ const Disc = ({
             />
             <circleGeometry args={[func(i), sides]} />
           </mesh>
-          <Line start={[i, 0, 0]} end={[i, func(i), 0]} />
+          {/* <Line start={[i, 0, 0]} end={[i, func(i), 0]} /> */}
         </Fragment>
       );
     }
     return discsArray;
   }, [controls.x]);
 
-  console.log(domain[0], controls.x, domain[0] + step);
   return (
     <>
       {!displaySolid && discs}
@@ -101,25 +101,30 @@ const Disc = ({
             />
             <circleGeometry args={[func(domain[0]), sides]} />
           </mesh>
-          <mesh rotation-y={-Math.PI / 2} position-x={controls.x + step}>
+          <mesh rotation-y={-Math.PI / 2} position-x={controls.x}>
             <meshBasicMaterial
               attach="material"
               color="#5a5a5a"
               side={DoubleSide}
             />
-            <circleGeometry args={[func(controls.x + step), sides]} />
+            <circleGeometry args={[func(controls.x), sides]} />
           </mesh>
           <Line
             start={[domain[0], 0, 0]}
             end={[domain[0], func(domain[0]), 0]}
           />
           <Line
-            start={[controls.x + step, 0, 0]}
-            end={[controls.x + step, func(controls.x + step), 0]}
+            start={[controls.x, 0, 0]}
+            end={[controls.x, func(controls.x), 0]}
           />
-          <CurveyLine points={points} />
+          {/* <CurveyLine points={points} /> */}
         </>
       )}
+      <Line start={[domain[0], 0, 0]} end={[domain[0], func(domain[0]), 0]} />
+      <Line
+        start={[controls.x, 0, 0]}
+        end={[controls.x, func(controls.x), 0]}
+      />
     </>
   );
 };
