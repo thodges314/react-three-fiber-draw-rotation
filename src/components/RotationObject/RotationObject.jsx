@@ -33,8 +33,9 @@ const RotationObject = ({
         })
       }
       rotation-z={-Math.PI / 2}
+      rotation-x={-Math.PI / 2}
     >
-      <latheGeometry args={[points, sides]} />
+      <latheGeometry args={[points, sides, 0, Math.PI]} />
     </mesh>
   );
 };
