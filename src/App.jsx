@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Stats, OrbitControls, Environment } from "@react-three/drei";
 import { useControls } from "leva";
-import { Axes, Disc, Drum, RotationObject } from "./components";
+import { Axes, Disc, DisplayPanel, Drum, RotationObject } from "./components";
 import { discMethod1 } from "./formulas";
 
 const App = () => {
@@ -37,6 +37,7 @@ const App = () => {
         files="./img/industrial_sunset_02_puresky_1k.hdr"
         background
       />
+      <DisplayPanel />
       <RotationObject solid={discMethod1} threeDee={threeDee} />
       {drums && <Drum solid={discMethod1} />}
       {discs && <Disc solid={discMethod1} />}
