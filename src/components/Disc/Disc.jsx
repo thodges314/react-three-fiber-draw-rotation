@@ -15,7 +15,7 @@ const Disc = ({
   sides = 90,
 }) => {
   const { domain, func, resolution } = solid;
-  const step = useMemo(() => 0.2 / resolution);
+  const step = useMemo(() => 0.5 / resolution);
   const options = useMemo(
     () => ({
       x: {
