@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { useControls } from "leva";
-import { DoubleSide, MeshBasicMaterial, Vector2 } from "three";
+import { DoubleSide } from "three";
 import Line from "./Line";
 import debounce from "../../utils/debounce";
 import RotationObject from "../RotationObject";
@@ -31,19 +31,6 @@ const Disc = ({
 
   const [displaySolid, setDisplaySolid] = useState(false);
 
-  const points = useMemo(() => {
-    // const { domain, func, resolution } = solid;
-    const pts = [];
-    // const numberPoints = resolution * (controls.x - domain[0]);
-    // const dx = (controls.x - domain[0]) / numberPoints;
-    const dx = 0.2 / resolution;
-    for (let i = domain[0]; i <= controls.x; i += dx) {
-      pts.push(new Vector2(func(i), i));
-    }
-    // pts.push(new Vector2(func(controls.x), controls.x));
-    return pts;
-  }, [controls.x]);
-
   const debouncedChangeHandler = useMemo(
     () =>
       debounce(() => {
@@ -70,7 +57,6 @@ const Disc = ({
             />
             <circleGeometry args={[func(i), sides]} />
           </mesh>
-          {/* <Line start={[i, 0, 0]} end={[i, func(i), 0]} /> */}
         </Fragment>
       );
     }
@@ -94,19 +80,11 @@ const Disc = ({
       {displaySolid && (
         <>
           <mesh rotation-y={-Math.PI / 2} position-x={domain[0]}>
-            <meshBasicMaterial
-              attach="material"
-              color="#5a5a5a"
-              side={DoubleSide}
-            />
+            <meshBasicMaterial attach="material" color="#5a5a5a" />
             <circleGeometry args={[func(domain[0]), sides]} />
           </mesh>
-          <mesh rotation-y={-Math.PI / 2} position-x={controls.x}>
-            <meshBasicMaterial
-              attach="material"
-              color="#5a5a5a"
-              side={DoubleSide}
-            />
+          <mesh rotation-y={Math.PI / 2} position-x={controls.x}>
+            <meshBasicMaterial attach="material" color="#5a5a5a" />
             <circleGeometry args={[func(controls.x), sides]} />
           </mesh>
           <Line

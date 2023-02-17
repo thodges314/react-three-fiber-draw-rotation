@@ -1,7 +1,6 @@
-import { useEffect, useMemo, Fragment } from "react";
+import { useMemo, Fragment } from "react";
 import { useControls } from "leva";
 import Line from "./Line";
-import { useFrame } from "@react-three/fiber";
 
 const Drum = ({
   solid = {

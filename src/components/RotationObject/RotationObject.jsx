@@ -1,7 +1,6 @@
-import { useMemo, useRef, useEffect, useState } from "react";
-import { DoubleSide, MeshNormalMaterial, Vector2, MathUtils } from "three";
+import { useMemo } from "react";
+import { DoubleSide, Vector2 } from "three";
 import CurveyLine from "./CurveyLine";
-import { useFrame } from "@react-three/fiber";
 
 const RotationObject = ({
   solid = {
@@ -18,10 +17,8 @@ const RotationObject = ({
   const points = useMemo(() => {
     const { domain, func, resolution } = solid;
     const pts = [];
-    // const numberPoints = resolution * (domain[1] - domain[0]);
     const dx = 0.2 / resolution;
     for (let i = domain[0]; i <= domain[1]; i += dx) {
-      // const x = domain[0] + i * dx;
       pts.push(new Vector2(func(i), i));
     }
     pts.push(new Vector2(func(domain[1]), domain[1]));
