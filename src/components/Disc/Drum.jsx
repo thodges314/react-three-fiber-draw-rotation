@@ -1,6 +1,7 @@
 import { useMemo, Fragment } from "react";
 import { useControls } from "leva";
 import Line from "./Line";
+import { Roboto } from "../Text";
 
 const Drum = ({
   solid = {
@@ -50,6 +51,12 @@ const Drum = ({
       <Line
         start={[controls.x + step, 0, 0]}
         end={[controls.x + step, func(controls.x), 0]}
+        label="r"
+      />
+      <Roboto
+        text="Δx"
+        size={0.2}
+        position={[controls.x, func(controls.x) + 0.4, 0]}
       />
     </>
   );

@@ -5,6 +5,8 @@ import Line from "./Line";
 import debounce from "../../utils/debounce";
 import RotationObject from "../RotationObject";
 import CurveyLine from "../RotationObject/CurveyLine";
+// import Label from "../Label";
+import { Inconsolata } from "../Text";
 
 const Disc = ({
   solid = {
@@ -24,6 +26,7 @@ const Disc = ({
         max: domain[1],
         step: step,
       },
+      label: true,
     }),
     []
   );
@@ -46,16 +49,22 @@ const Disc = ({
 
   const discs = useMemo(() => {
     const discsArray = [];
-    for (let i = domain[0]; i <= controls.x + step; i += step) {
+    const [start, end, increment] = [
+      domain[0] * 100,
+      controls.x * 100,
+      step * 100,
+    ];
+    for (let i = start; i <= end; i += increment) {
+      const j = i / 100;
       discsArray.push(
         <Fragment key={i}>
-          <mesh rotation-y={-Math.PI / 2} position-x={i}>
+          <mesh rotation-y={-Math.PI / 2} position-x={j}>
             <meshBasicMaterial
               attach="material"
               color="#5a5a5a"
               side={DoubleSide}
             />
-            <circleGeometry args={[func(i), sides]} />
+            <circleGeometry args={[func(j), sides]} />
           </mesh>
         </Fragment>
       );
@@ -66,7 +75,7 @@ const Disc = ({
   return (
     <>
       {!displaySolid && discs}
-      {displaySolid && controls.x > domain[0] && (
+      {displaySolid && controls.x >= domain[0] && (
         <RotationObject
           solid={{
             domain: [domain[0], controls.x],
@@ -102,6 +111,12 @@ const Disc = ({
       <Line
         start={[controls.x, 0, 0]}
         end={[controls.x, func(controls.x), 0]}
+        label={"r"}
+      />
+      <Inconsolata
+        text="dx"
+        size={0.2}
+        position={[controls.x - 0.2, func(controls.x) + 0.4, 0]}
       />
     </>
   );
