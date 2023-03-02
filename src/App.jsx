@@ -25,9 +25,9 @@ const App = () => {
         background
       />
       {/* <DisplayPanel /> */}
-      <RotationObject solid={discMethod1} threeDee={threeDee} opacity={0.5} />
-      {drums && <Drum solid={discMethod1} />}
-      {discs && <Disc solid={discMethod1} />}
+      <RotationObject solid={discMethod1} threeDee={threeDee} />
+      {drums && <Drum solid={discMethod1} threeDee={threeDee} />}
+      {discs && <Disc solid={discMethod1} threeDee={threeDee} />}
       <OrbitControls target={[2, 0, 0]} />
       <Axes />
       <Stats />
