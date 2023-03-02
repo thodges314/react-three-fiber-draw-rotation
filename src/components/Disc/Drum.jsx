@@ -42,11 +42,13 @@ const Drum = ({
             start={[i, 0, 0]}
             end={[i, func(i), 0]}
             color={lightGrey}
+            width={0.01}
           />
           <ThickStraightLine
             start={[i + step, 0, 0]}
             end={[i + step, func(i), 0]}
             color={lightGrey}
+            width={0.01}
           />
         </Fragment>
       );

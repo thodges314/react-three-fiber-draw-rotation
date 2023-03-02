@@ -4,7 +4,6 @@ import { Stats, OrbitControls, Environment } from "@react-three/drei";
 import { useControls } from "leva";
 import { Axes, Disc, Drum, RotationObject } from "./components";
 import { discMethod1 } from "./formulas";
-import { lightGrey, medGrey } from "./constants/colors";
 
 const App = () => {
   const options = useMemo(
@@ -12,7 +11,6 @@ const App = () => {
       discs: false,
       drums: false,
       threeDee: false,
-      // position: { x: 8, y: 8, z: 8 },
     }),
     []
   );

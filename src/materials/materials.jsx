@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { darkGrey, lightGrey } from "../constants/colors";
 import { DoubleSide, Vector2 } from "three";
 
