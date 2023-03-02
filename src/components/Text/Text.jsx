@@ -1,6 +1,7 @@
 import { extend } from "@react-three/fiber";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
+import { medGrey } from "../../constants/colors";
 
 import inconsolataFile from "../../fonts/Inconsolata_Regular.json";
 import robotoFile from "../../fonts/Roboto_Regular.json";
@@ -11,7 +12,7 @@ const Inconsolata = ({
   text = "",
   size = 0.5,
   position = [0, 0, 0],
-  color = 0x5a5a5a,
+  color = medGrey,
 }) => {
   const inconsolata = new FontLoader().parse(inconsolataFile);
   const textOptions = {
@@ -32,7 +33,7 @@ const Roboto = ({
   text = "",
   size = 0.5,
   position = [0, 0, 0],
-  color = 0x5a5a5a,
+  color = medGrey,
 }) => {
   const roboto = new FontLoader().parse(robotoFile);
   const textOptions = {

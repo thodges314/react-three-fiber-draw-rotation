@@ -1,12 +1,10 @@
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useControls } from "leva";
-import { DoubleSide } from "three";
-import Line from "./Line";
-import debounce from "../../utils/debounce";
+import { ThickStraightLine } from "../Lines";
 import RotationObject from "../RotationObject";
-// import CurveyLine from "../RotationObject/CurveyLine";
-// import Label from "../Label";
-import { Inconsolata } from "../Text";
+import { Roboto } from "../Text";
+import { darkGrey, lightGrey } from "../../constants/colors";
+import { darkPhongMaterial } from "../../materials";
 
 const Disc = ({
   solid = {
@@ -32,23 +30,6 @@ const Disc = ({
   );
   const controls = useControls(options);
 
-  const displaySolid = true;
-
-  // const discs = useMemo(() => {
-  //   const discsArray = (
-  //     <RotationObject
-  //       solid={{
-  //         domain: [domain[0], controls.x],
-  //         func: func,
-  //         resolution: resolution,
-  //       }}
-  //       sides={sides}
-  //       normalMaterial={false}
-  //     />
-  //   );
-  //   return discsArray;
-  // }, [controls.x]);
-
   return (
     <>
       {controls.x >= domain[0] && (
@@ -64,29 +45,30 @@ const Disc = ({
       )}
 
       <mesh rotation-y={-Math.PI / 2} position-x={domain[0]}>
-        <meshBasicMaterial attach="material" color="#5a5a5a" />
+        {darkPhongMaterial}
         <circleGeometry args={[func(domain[0]), sides]} />
       </mesh>
       <mesh rotation-y={Math.PI / 2} position-x={controls.x}>
-        <meshBasicMaterial attach="material" color="#5a5a5a" />
+        {darkPhongMaterial}
         <circleGeometry args={[func(controls.x), sides]} />
       </mesh>
-      <Line start={[domain[0], 0, 0]} end={[domain[0], func(domain[0]), 0]} />
-      <Line
-        start={[controls.x, 0, 0]}
-        end={[controls.x, func(controls.x), 0]}
-      />
 
-      <Line start={[domain[0], 0, 0]} end={[domain[0], func(domain[0]), 0]} />
-      <Line
+      <ThickStraightLine
+        start={[domain[0], 0, 0]}
+        end={[domain[0], func(domain[0]), 0]}
+        color={lightGrey}
+      />
+      <ThickStraightLine
         start={[controls.x, 0, 0]}
         end={[controls.x, func(controls.x), 0]}
+        color={lightGrey}
         label={"r=f(x)"}
       />
-      <Inconsolata
+      <Roboto
         text="dx"
-        size={0.2}
+        size={0.25}
         position={[controls.x - 0.2, func(controls.x) + 0.4, 0]}
+        color={darkGrey}
       />
     </>
   );

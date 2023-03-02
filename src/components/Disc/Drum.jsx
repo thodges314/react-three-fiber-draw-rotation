@@ -1,7 +1,9 @@
 import { useMemo, Fragment } from "react";
 import { useControls } from "leva";
-import Line from "./Line";
+import { ThickStraightLine } from "../Lines";
 import { Roboto } from "../Text";
+import { lightGrey } from "../../constants/colors";
+import { darkPhongMaterial } from "../../materials";
 
 const Drum = ({
   solid = {
@@ -33,11 +35,19 @@ const Drum = ({
       drumArray.push(
         <Fragment key={i}>
           <mesh rotation-z={-Math.PI / 2} position-x={i + step / 2}>
-            <meshPhongMaterial attach="material" color="#5a5a5a" />
+            {darkPhongMaterial}
             <cylinderGeometry args={[func(i), func(i), step, sides]} />
           </mesh>
-          <Line start={[i, 0, 0]} end={[i, func(i), 0]} />
-          <Line start={[i + step, 0, 0]} end={[i + step, func(i), 0]} />
+          <ThickStraightLine
+            start={[i, 0, 0]}
+            end={[i, func(i), 0]}
+            color={lightGrey}
+          />
+          <ThickStraightLine
+            start={[i + step, 0, 0]}
+            end={[i + step, func(i), 0]}
+            color={lightGrey}
+          />
         </Fragment>
       );
     }
@@ -47,15 +57,20 @@ const Drum = ({
   return (
     <>
       {drums}
-      <Line start={[domain[0], 0, 0]} end={[domain[0], func(domain[0]), 0]} />
-      <Line
+      <ThickStraightLine
+        start={[domain[0], 0, 0]}
+        end={[domain[0], func(domain[0]), 0]}
+        color={lightGrey}
+      />
+      <ThickStraightLine
         start={[controls.x + step, 0, 0]}
         end={[controls.x + step, func(controls.x), 0]}
         label={"r=f(x)"}
+        color={lightGrey}
       />
       <Roboto
         text="Δx"
-        size={0.2}
+        size={0.25}
         position={[controls.x, func(controls.x) + 0.4, 0]}
       />
     </>
