@@ -51,7 +51,7 @@ const Drum = ({
       <Line
         start={[controls.x + step, 0, 0]}
         end={[controls.x + step, func(controls.x), 0]}
-        label="r"
+        label={"r=f(x)"}
       />
       <Roboto
         text="Δx"

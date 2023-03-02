@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { DoubleSide, Vector2 } from "three";
-import CurveyLine from "./CurveyLine";
+import ThickCurveyLine from "./ThickCurveyLine";
 
 const RotationObject = ({
   solid = {
@@ -27,26 +27,27 @@ const RotationObject = ({
 
   return (
     <>
-      <mesh rotation-z={-Math.PI / 2} rotation-x={-Math.PI / 2}>
-        {normalMaterial && (
-          <meshNormalMaterial
-            attach="material"
-            side={DoubleSide}
-            transparent={transparent}
-            opacity={opacity}
-          />
-        )}
-        {!normalMaterial && (
-          <meshPhongMaterial
-            attach="material"
-            color="#5a5a5a"
-            side={DoubleSide}
-          />
-        )}
-        {points.length > 1 && <latheGeometry args={[points, sides]} />}
-      </mesh>
-
-      {/* <CurveyLine points={points} /> */}
+      {threeDee && (
+        <mesh rotation-z={-Math.PI / 2} rotation-x={-Math.PI / 2}>
+          {normalMaterial && (
+            <meshNormalMaterial
+              attach="material"
+              side={DoubleSide}
+              transparent={transparent}
+              opacity={opacity}
+            />
+          )}
+          {!normalMaterial && (
+            <meshPhongMaterial
+              attach="material"
+              color="#5a5a5a"
+              side={DoubleSide}
+            />
+          )}
+          {points.length > 1 && <latheGeometry args={[points, sides]} />}
+        </mesh>
+      )}
+      {normalMaterial && <ThickCurveyLine points={points} />}
     </>
   );
 };

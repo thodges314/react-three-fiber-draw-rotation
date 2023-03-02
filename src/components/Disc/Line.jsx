@@ -13,7 +13,7 @@ const LineExport = ({
   ];
   const lineGeometry = new BufferGeometry().setFromPoints(points);
   const labelPos = [
-    (start[0] + end[0]) / 2,
+    (start[0] + end[0]) / 2 + 0.1,
     (start[1] + end[1]) / 2,
     (start[2] + end[2]) / 2,
   ];
