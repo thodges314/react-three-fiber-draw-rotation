@@ -53,5 +53,3 @@ const App = () => {
 };
 
 export default App;
-
-// onStart={() => cameraRef.current?.setTarget(...twoDView)}
