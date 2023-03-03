@@ -1,3 +1,3 @@
-import { Inconsolata, Roboto } from "./Text";
+import { CourierPrime, Inconsolata, Roboto } from "./Text";
 
-export { Inconsolata, Roboto };
+export { CourierPrime, Inconsolata, Roboto };

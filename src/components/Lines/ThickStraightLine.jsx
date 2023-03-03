@@ -1,5 +1,5 @@
 import { LineCurve3, Vector3, DoubleSide } from "three";
-import { Roboto } from "../Text";
+import { CourierPrime } from "../Text";
 
 const ThickStraightLine = ({
   start = [0, 0, 0],
@@ -9,6 +9,7 @@ const ThickStraightLine = ({
   rotationY = 0,
   rotationZ = 0,
   label = "",
+  bold = true,
   color,
 }) => {
   const points = [
@@ -40,7 +41,13 @@ const ThickStraightLine = ({
         )}
       </mesh>
       {label !== "" && (
-        <Roboto position={labelPos} text={label} color={color} size={0.25} />
+        <CourierPrime
+          position={labelPos}
+          text={label}
+          color={color}
+          size={0.25}
+          bold={bold}
+        />
       )}
     </>
   );

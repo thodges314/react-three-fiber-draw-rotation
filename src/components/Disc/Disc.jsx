@@ -2,8 +2,8 @@ import { useMemo } from "react";
 import { useControls } from "leva";
 import { ThickStraightLine } from "../Lines";
 import RotationObject from "../RotationObject";
-import { Roboto } from "../Text";
-import { darkGrey, lightGrey } from "../../constants/colors";
+import { CourierPrime } from "../Text";
+import { synthPink } from "../../constants/colors";
 import { darkPhongMaterial } from "../../materials";
 
 const Disc = ({
@@ -13,6 +13,7 @@ const Disc = ({
     resolution: 20,
   },
   sides = 90,
+  threeDee = true,
 }) => {
   const { domain, func, resolution } = solid;
   const step = useMemo(() => 0.5 / resolution);
@@ -56,19 +57,20 @@ const Disc = ({
       <ThickStraightLine
         start={[domain[0], 0, 0]}
         end={[domain[0], func(domain[0]), 0]}
-        color={lightGrey}
+        color={synthPink}
       />
       <ThickStraightLine
         start={[controls.x, 0, 0]}
         end={[controls.x, func(controls.x), 0]}
-        color={lightGrey}
+        color={synthPink}
         label={"r=f(x)"}
       />
-      <Roboto
+      <CourierPrime
         text="dx"
         size={0.25}
         position={[controls.x - 0.2, func(controls.x) + 0.4, 0]}
-        color={darkGrey}
+        color={synthPink}
+        bold={true}
       />
     </>
   );

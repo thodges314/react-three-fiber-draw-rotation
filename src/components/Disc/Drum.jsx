@@ -1,8 +1,8 @@
 import { useMemo, Fragment } from "react";
 import { useControls } from "leva";
 import { ThickStraightLine } from "../Lines";
-import { Roboto } from "../Text";
-import { lightGrey } from "../../constants/colors";
+import { CourierPrime } from "../Text";
+import { lightGrey, synthPink } from "../../constants/colors";
 import { darkPhongMaterial } from "../../materials";
 
 const Drum = ({
@@ -77,23 +77,25 @@ const Drum = ({
           <ThickStraightLine
             start={[domain[0], 0, 0]}
             end={[domain[0], func(domain[0]), 0]}
-            color={lightGrey}
+            color={synthPink}
           />
           <ThickStraightLine
             start={[controls.x + step, 0, 0]}
             end={[controls.x + step, func(controls.x), 0]}
             label={"r=f(x)"}
-            color={lightGrey}
+            color={synthPink}
           />
         </>
       ) : (
-        <Roboto
+        <CourierPrime
           text="f(x)"
           position={[controls.x + step + 0.01, func(controls.x) / 2, 0]}
           size={0.25}
+          color={synthPink}
+          bold={true}
         />
       )}
-      <Roboto
+      <CourierPrime
         text="Δx"
         size={0.25}
         position={[
@@ -101,6 +103,8 @@ const Drum = ({
           func(controls.x) + (threeDee ? 0.4 : 0.1),
           0,
         ]}
+        color={synthPink}
+        bold={true}
       />
     </>
   );
