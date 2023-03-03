@@ -1,0 +1,40 @@
+import { useMemo } from "react";
+import { darkPhongMaterial } from "../../materials";
+
+const FlatIntegral = ({
+  solid = {
+    domain: [0.1, 1],
+    func: (x) => x,
+    resolution: 10,
+  },
+  rightBound = solid.domain[1],
+}) => {
+  const { domain } = solid;
+  const dx = useMemo(() => {
+    const { resolution } = solid;
+    return 0.1 / resolution;
+  }, []);
+  const shapes = useMemo(() => {
+    const { func } = solid;
+    const shps = [];
+    for (let i = domain[0]; i < domain[1]; i += dx) {
+      const smlr = Math.min(func(i), func(i + dx));
+      shps.push(
+        <mesh
+          position-x={i + dx / 2}
+          position-y={smlr / 2}
+          rotation-z={-Math.PI / 2}
+          key={Math.round(i * 100)}
+        >
+          {darkPhongMaterial}
+          <planeGeometry args={[smlr, dx]} />
+        </mesh>
+      );
+    }
+    return shps;
+  }, []);
+  const idx = (rightBound - domain[0]) / dx;
+  return <mesh>{shapes.slice(0, idx)}</mesh>;
+};
+
+export default FlatIntegral;

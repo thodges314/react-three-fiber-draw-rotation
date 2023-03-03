@@ -1,6 +1,6 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Stats, OrbitControls, Environment } from "@react-three/drei";
+import { Stats, CameraControls, Environment } from "@react-three/drei";
 import { useControls } from "leva";
 import { Axes, Disc, Drum, RotationObject } from "./components";
 import { discMethod1 } from "./formulas";
@@ -16,6 +16,23 @@ const App = () => {
   );
 
   const { discs, drums, threeDee } = useControls("display options", options);
+  const cameraRef = useRef();
+  const threeDView = [2, 0, 0];
+  const twoDView = [2, 1, 0];
+
+  useEffect(() => {
+    // threeDee
+    //   ? cameraRef.current?.setTarget(...threeDView, true)
+    //   : cameraRef.current?.setTarget(...twoDView, true);
+  }, [threeDee, cameraRef, threeDView, twoDView]);
+
+  useEffect(() => {
+    window.setTimeout(
+      () => cameraRef.current?.setTarget(...twoDView, true),
+      500
+    );
+  }, []);
+
   return (
     <Canvas camera={{ position: [2.5, 0, 10] }}>
       <ambientLight color={0x91b2cb} intensity={2} />
@@ -28,7 +45,7 @@ const App = () => {
       <RotationObject solid={discMethod1} threeDee={threeDee} />
       {drums && <Drum solid={discMethod1} threeDee={threeDee} />}
       {discs && <Disc solid={discMethod1} threeDee={threeDee} />}
-      <OrbitControls target={[2, 0, 0]} />
+      <CameraControls ref={cameraRef} />
       <Axes />
       <Stats />
     </Canvas>
@@ -36,3 +53,5 @@ const App = () => {
 };
 
 export default App;
+
+// onStart={() => cameraRef.current?.setTarget(...twoDView)}

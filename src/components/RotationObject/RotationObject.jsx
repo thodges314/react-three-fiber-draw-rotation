@@ -1,7 +1,6 @@
 import { useMemo } from "react";
-import { DoubleSide, Vector2 } from "three";
+import { Vector2 } from "three";
 import { ThickCurveyLine } from "../Lines";
-import { darkGrey, lightGrey } from "../../constants/colors";
 import { darkPhongMaterial, translucentNormalMaterial } from "../../materials";
 
 const RotationObject = ({

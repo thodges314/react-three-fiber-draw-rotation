@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useControls } from "leva";
 import { ThickStraightLine } from "../Lines";
-import RotationObject from "../RotationObject";
+import RotationObject, { FlatIntegral } from "../RotationObject";
 import { CourierPrime } from "../Text";
 import { synthPink } from "../../constants/colors";
 import { darkPhongMaterial } from "../../materials";
@@ -33,37 +33,51 @@ const Disc = ({
 
   return (
     <>
-      {controls.x >= domain[0] && (
-        <RotationObject
-          solid={{
-            domain: [domain[0], controls.x],
-            func: func,
-            resolution: resolution,
-          }}
-          sides={sides}
-          normalMaterial={false}
-        />
+      {controls.x >= domain[0] &&
+        (threeDee ? (
+          <RotationObject
+            solid={{
+              domain: [domain[0], controls.x],
+              func: func,
+              resolution: resolution,
+            }}
+            sides={sides}
+            normalMaterial={false}
+          />
+        ) : (
+          <FlatIntegral
+            solid={{
+              domain: [domain[0], domain[1]],
+              func: func,
+              resolution: resolution,
+            }}
+            rightBound={controls.x}
+          />
+        ))}
+
+      {threeDee && (
+        <>
+          <mesh rotation-y={-Math.PI / 2} position-x={domain[0]}>
+            {darkPhongMaterial}
+            <circleGeometry args={[func(domain[0]), sides]} />
+          </mesh>
+          <mesh rotation-y={Math.PI / 2} position-x={controls.x}>
+            {darkPhongMaterial}
+            <circleGeometry args={[func(controls.x), sides]} />
+          </mesh>
+          <ThickStraightLine
+            start={[domain[0], 0, 0]}
+            end={[domain[0], func(domain[0]), 0]}
+            color={synthPink}
+          />
+        </>
       )}
 
-      <mesh rotation-y={-Math.PI / 2} position-x={domain[0]}>
-        {darkPhongMaterial}
-        <circleGeometry args={[func(domain[0]), sides]} />
-      </mesh>
-      <mesh rotation-y={Math.PI / 2} position-x={controls.x}>
-        {darkPhongMaterial}
-        <circleGeometry args={[func(controls.x), sides]} />
-      </mesh>
-
-      <ThickStraightLine
-        start={[domain[0], 0, 0]}
-        end={[domain[0], func(domain[0]), 0]}
-        color={synthPink}
-      />
       <ThickStraightLine
         start={[controls.x, 0, 0]}
         end={[controls.x, func(controls.x), 0]}
         color={synthPink}
-        label={"r=f(x)"}
+        label={threeDee ? "r=f(x)" : "f(x)"}
       />
       <CourierPrime
         text="dx"
