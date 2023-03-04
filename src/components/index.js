@@ -1,7 +1,20 @@
 import Axes from "./Axes";
-import { Disc, Drum } from "./Disc";
+import { Disc, Drum, Washer } from "./Disc";
 import DisplayPanel from "./DisplayPanel";
+import { ThickCurveyLine, ThickStraightLine } from "./Lines";
 import RotationObject from "./RotationObject";
-import { Inconsolata, Roboto } from "./Text";
+import { CourierPrime, Inconsolata, Roboto } from "./Text";
 
-export { Axes, Disc, DisplayPanel, Drum, Inconsolata, Roboto, RotationObject };
+export {
+  Axes,
+  CourierPrime,
+  Disc,
+  DisplayPanel,
+  Drum,
+  Inconsolata,
+  Roboto,
+  RotationObject,
+  ThickCurveyLine,
+  ThickStraightLine,
+  Washer,
+};

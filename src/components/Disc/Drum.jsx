@@ -13,6 +13,9 @@ const Drum = ({
   },
   sides = 90,
   threeDee = true,
+  labelProportion = 1,
+  functionName = "f(x)",
+  displayTopLabel = true,
 }) => {
   const { domain, func, resolution } = solid;
   const step = useMemo(() => 1 / resolution);
@@ -82,30 +85,33 @@ const Drum = ({
           <ThickStraightLine
             start={[controls.x + step, 0, 0]}
             end={[controls.x + step, func(controls.x), 0]}
-            label={"r=f(x)"}
+            label={functionName}
             color={synthPink}
+            labelProportion={labelProportion}
           />
         </>
       ) : (
         <CourierPrime
-          text="f(x)"
+          text={functionName}
           position={[controls.x + step + 0.01, func(controls.x) / 2, 0]}
-          size={0.25}
+          size={labelProportion * 0.25}
           color={synthPink}
           bold={true}
         />
       )}
-      <CourierPrime
-        text="Δx"
-        size={0.25}
-        position={[
-          controls.x - 0.05,
-          func(controls.x) + (threeDee ? 0.4 : 0.1),
-          0,
-        ]}
-        color={synthPink}
-        bold={true}
-      />
+      {displayTopLabel && (
+        <CourierPrime
+          text="Δx"
+          size={labelProportion * 0.25}
+          position={[
+            controls.x - labelProportion * 0.03,
+            func(controls.x) + labelProportion * (threeDee ? 0.4 : 0.2),
+            0,
+          ]}
+          color={synthPink}
+          bold={true}
+        />
+      )}
     </>
   );
 };

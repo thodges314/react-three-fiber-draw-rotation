@@ -1,3 +1,17 @@
-import { discMethod1 } from "./formulas";
+import {
+  discMethod1,
+  discMethodView,
+  washerMethod,
+  washerMethod1,
+  washerMethod2,
+  washerMethodView,
+} from "./formulas";
 
-export { discMethod1 };
+export {
+  discMethod1,
+  discMethodView,
+  washerMethod,
+  washerMethod1,
+  washerMethod2,
+  washerMethodView,
+};

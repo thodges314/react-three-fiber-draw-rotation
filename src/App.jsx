@@ -2,8 +2,16 @@ import { useEffect, useMemo, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Stats, CameraControls, Environment } from "@react-three/drei";
 import { useControls } from "leva";
-import { Axes, Disc, Drum, RotationObject } from "./components";
-import { discMethod1 } from "./formulas";
+import { Axes, Disc, Drum, RotationObject, Washer } from "./components";
+import { synthPink, synthViolet } from "./constants/colors";
+import {
+  discMethod1,
+  discMethodView,
+  washerMethod,
+  washerMethod1,
+  washerMethod2,
+  washerMethodView,
+} from "./formulas";
 
 const App = () => {
   const options = useMemo(
@@ -17,8 +25,10 @@ const App = () => {
 
   const { discs, drums, threeDee } = useControls("display options", options);
   const cameraRef = useRef();
-  const threeDView = [2, 0, 0];
-  const twoDView = [2, 1, 0];
+  const { twoDView, threeDView, cameraPosition, axesLength, labelProportion } =
+    washerMethodView;
+  // const { twoDView, threeDView, cameraPosition, axesLength, labelProportion } =
+  //   discMethodView;
 
   useEffect(() => {
     // threeDee
@@ -34,7 +44,7 @@ const App = () => {
   }, []);
 
   return (
-    <Canvas camera={{ position: [2.5, 0, 10] }}>
+    <Canvas camera={{ position: cameraPosition }}>
       <ambientLight color={0x91b2cb} intensity={2} />
       <directionalLight position={[1123, 56, 79]} intensity={0.5} />
       <Environment
@@ -42,11 +52,72 @@ const App = () => {
         background
       />
       {/* <DisplayPanel /> */}
-      <RotationObject solid={discMethod1} threeDee={threeDee} />
-      {drums && <Drum solid={discMethod1} threeDee={threeDee} />}
-      {discs && <Disc solid={discMethod1} threeDee={threeDee} />}
+      {/* <RotationObject solid={discMethod1} threeDee={threeDee} />
+      {drums && (
+        <Drum
+          solid={discMethod1}
+          threeDee={threeDee}
+          labelProportion={labelProportion}
+          functionName={threeDee ? "r=f(x)" : "f(x)"}
+        />
+      )}
+      {discs && (
+        <Disc
+          solid={discMethod1}
+          threeDee={threeDee}
+          labelProportion={labelProportion}
+          functionName={threeDee ? "r=f(x)" : "f(x)"}
+        />
+      )} */}
+      {/* <RotationObject solid={washerMethod1} threeDee={threeDee} />
+      {drums && (
+        <Drum
+          solid={washerMethod1}
+          threeDee={threeDee}
+          labelProportion={labelProportion}
+          functionName={threeDee ? "r=g(x)" : "g(x)"}
+          displayTopLabel={false}
+        />
+      )}
+      {discs && (
+        <Disc
+          solid={washerMethod1}
+          threeDee={threeDee}
+          labelProportion={labelProportion}
+          functionName={threeDee ? "r=g(x)" : "g(x)"}
+          displayTopLabel={false}
+          labelColor={synthViolet}
+        />
+      )}
+      <RotationObject solid={washerMethod2} threeDee={threeDee} />
+      {drums && (
+        <Drum
+          solid={washerMethod2}
+          threeDee={threeDee}
+          labelProportion={labelProportion}
+          functionName={threeDee ? "r=f(x)" : "f(x)"}
+        />
+      )}
+      {discs && (
+        <Disc
+          solid={washerMethod2}
+          threeDee={threeDee}
+          labelProportion={labelProportion}
+          functionName={threeDee ? "r=f(x)" : "f(x)"}
+        />
+      )} */}
+      <RotationObject solid={washerMethod1} threeDee={threeDee} />
+      <RotationObject solid={washerMethod2} threeDee={threeDee} />
+      {discs && (
+        <Washer
+          solid={washerMethod}
+          labelProportion={labelProportion}
+          threeDee={threeDee}
+        />
+      )}
+
       <CameraControls ref={cameraRef} />
-      <Axes />
+      <Axes length={axesLength} labelProportion={labelProportion} />
       <Stats />
     </Canvas>
   );

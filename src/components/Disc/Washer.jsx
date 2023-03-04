@@ -3,23 +3,26 @@ import { useControls } from "leva";
 import { ThickStraightLine } from "../Lines";
 import RotationObject, { FlatIntegral } from "../RotationObject";
 import { CourierPrime } from "../Text";
-import { synthPink } from "../../constants/colors";
+import { synthPink, synthViolet } from "../../constants/colors";
 import { darkPhongMaterial } from "../../materials";
 
-const Disc = ({
+const Washer = ({
   solid = {
     domain: [0, 1],
-    func: (x) => x,
+    bigFunc: (x) => x,
+    littleFunc: (x) => x,
     resolution: 20,
   },
   sides = 90,
   threeDee = true,
   labelProportion = 1,
-  functionName = "f(x)",
-  displayTopLabel = true,
-  labelColor = synthPink,
+  functionNameBig = "f(x)",
+  functionNameLittle = "g(x)",
+  // displayTopLabel = false,
+  labelColorBig = synthPink,
+  labelColorLittle = synthViolet,
 }) => {
-  const { domain, func, resolution } = solid;
+  const { domain, bigFunc, littleFunc, resolution } = solid;
   const step = useMemo(() => 0.5 / resolution);
   const options = useMemo(
     () => ({
@@ -34,25 +37,27 @@ const Disc = ({
     []
   );
   const controls = useControls(options);
-
+  console.log(threeDee);
   return (
     <>
       {controls.x >= domain[0] &&
         (threeDee ? (
-          <RotationObject
-            solid={{
-              domain: [domain[0], controls.x],
-              func: func,
-              resolution: resolution,
-            }}
-            sides={sides}
-            normalMaterial={false}
-          />
+          // <RotationObject
+          //   solid={{
+          //     domain: [domain[0], controls.x],
+          //     func: func,
+          //     resolution: resolution,
+          //   }}
+          //   sides={sides}
+          //   normalMaterial={false}
+          // />
+          <></>
         ) : (
           <FlatIntegral
             solid={{
               domain: [domain[0], domain[1]],
-              funcTop: func,
+              funcTop: bigFunc,
+              funcBottom: littleFunc,
               resolution: resolution,
             }}
             rightBound={controls.x}
@@ -61,30 +66,42 @@ const Disc = ({
 
       {threeDee && (
         <>
-          <mesh rotation-y={-Math.PI / 2} position-x={domain[0]}>
+          {/* <mesh rotation-y={-Math.PI / 2} position-x={domain[0]}>
             {darkPhongMaterial}
             <circleGeometry args={[func(domain[0]), sides]} />
           </mesh>
           <mesh rotation-y={Math.PI / 2} position-x={controls.x}>
             {darkPhongMaterial}
             <circleGeometry args={[func(controls.x), sides]} />
-          </mesh>
-          <ThickStraightLine
+          </mesh> */}
+          {/* <ThickStraightLine
             start={[domain[0], 0, 0]}
             end={[domain[0], func(domain[0]), 0]}
             color={synthPink}
-          />
+          /> */}
         </>
       )}
 
-      <ThickStraightLine
-        start={[controls.x, 0, 0]}
-        end={[controls.x, func(controls.x), 0]}
-        color={labelColor}
-        label={functionName}
-        labelProportion={labelProportion}
-      />
-      {displayTopLabel && (
+      {!threeDee && (
+        <>
+          <ThickStraightLine
+            start={[controls.x + 0.01, 0, 0.01]}
+            end={[controls.x + 0 + 0.01, littleFunc(controls.x), 0.01]}
+            color={labelColorLittle}
+            label={functionNameLittle}
+            labelProportion={labelProportion}
+          />
+          <ThickStraightLine
+            start={[controls.x - 0.01, 0, 0.01]}
+            end={[controls.x - 0.01, bigFunc(controls.x), 0.01]}
+            color={labelColorBig}
+            label={functionNameBig}
+            labelProportion={labelProportion}
+            labelRight={false}
+          />
+        </>
+      )}
+      {/* {displayTopLabel && (
         <CourierPrime
           text="dx"
           size={0.25 * labelProportion}
@@ -96,9 +113,9 @@ const Disc = ({
           color={synthPink}
           bold={true}
         />
-      )}
+      )} */}
     </>
   );
 };
 
-export default Disc;
+export default Washer;

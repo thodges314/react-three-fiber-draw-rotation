@@ -10,6 +10,8 @@ const ThickStraightLine = ({
   rotationZ = 0,
   label = "",
   bold = true,
+  labelRight = true,
+  labelProportion = 1,
   color,
 }) => {
   const points = [
@@ -18,7 +20,7 @@ const ThickStraightLine = ({
   ];
   const curve = new LineCurve3(...points);
   const labelPos = [
-    (start[0] + end[0]) / 2 + 0.1,
+    (start[0] + end[0]) / 2 + (labelRight ? 0.1 : -0.95) * labelProportion,
     (start[1] + end[1]) / 2,
     (start[2] + end[2]) / 2,
   ];
@@ -45,7 +47,7 @@ const ThickStraightLine = ({
           position={labelPos}
           text={label}
           color={color}
-          size={0.25}
+          size={0.25 * labelProportion}
           bold={bold}
         />
       )}
