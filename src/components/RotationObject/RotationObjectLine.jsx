@@ -1,15 +1,14 @@
 import { useMemo } from "react";
 import { Vector2 } from "three";
-import { darkPhongMaterial, translucentNormalMaterial } from "../../materials";
+import { ThickCurveyLine } from "../Lines";
+// import { darkPhongMaterial, translucentNormalMaterial } from "../../materials";
 
-const RotationObject = ({
+const RotationObjectLine = ({
   solid = {
     domain: [0.1, 1],
     func: (x) => x,
     resolution: 10,
   },
-  sides = 90,
-  normalMaterial = true,
 }) => {
   const points = useMemo(() => {
     const { domain, func, resolution } = solid;
@@ -23,11 +22,12 @@ const RotationObject = ({
   });
 
   return (
-    <mesh rotation-z={-Math.PI / 2} rotation-x={-Math.PI / 2}>
-      {normalMaterial ? translucentNormalMaterial : darkPhongMaterial}
-      {points.length > 1 && <latheGeometry args={[points, sides]} />}
-    </mesh>
+    <ThickCurveyLine
+      points={points}
+      rotationX={Math.PI}
+      rotationZ={-Math.PI / 2}
+    />
   );
 };
 
-export default RotationObject;
+export default RotationObjectLine;

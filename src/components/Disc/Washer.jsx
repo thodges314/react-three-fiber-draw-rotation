@@ -38,20 +38,32 @@ const Washer = ({
   );
   const controls = useControls(options);
   console.log(threeDee);
+  const zTransform = 1 / 2;
+  const yTransform = 3 ** (1 / 2) / 2;
   return (
     <>
       {controls.x >= domain[0] &&
         (threeDee ? (
-          // <RotationObject
-          //   solid={{
-          //     domain: [domain[0], controls.x],
-          //     func: func,
-          //     resolution: resolution,
-          //   }}
-          //   sides={sides}
-          //   normalMaterial={false}
-          // />
-          <></>
+          <>
+            <RotationObject
+              solid={{
+                domain: [domain[0], controls.x],
+                func: bigFunc,
+                resolution: resolution,
+              }}
+              sides={sides}
+              normalMaterial={false}
+            />
+            <RotationObject
+              solid={{
+                domain: [domain[0], controls.x],
+                func: littleFunc,
+                resolution: resolution,
+              }}
+              sides={sides}
+              normalMaterial={false}
+            />
+          </>
         ) : (
           <FlatIntegral
             solid={{
@@ -66,19 +78,40 @@ const Washer = ({
 
       {threeDee && (
         <>
-          {/* <mesh rotation-y={-Math.PI / 2} position-x={domain[0]}>
+          <mesh rotation-y={-Math.PI / 2} position-x={domain[0]}>
             {darkPhongMaterial}
-            <circleGeometry args={[func(domain[0]), sides]} />
+            <ringGeometry
+              args={[littleFunc(domain[0]), bigFunc(domain[0]), sides]}
+            />
           </mesh>
-          <mesh rotation-y={Math.PI / 2} position-x={controls.x}>
+          <mesh rotation-y={-Math.PI / 2} position-x={controls.x}>
             {darkPhongMaterial}
-            <circleGeometry args={[func(controls.x), sides]} />
-          </mesh> */}
-          {/* <ThickStraightLine
-            start={[domain[0], 0, 0]}
-            end={[domain[0], func(domain[0]), 0]}
+            <ringGeometry
+              args={[littleFunc(controls.x), bigFunc(controls.x), sides]}
+            />
+          </mesh>
+          <ThickStraightLine
+            start={[controls.x, 0, 0]}
+            end={[
+              controls.x,
+              yTransform * littleFunc(controls.x),
+              zTransform * littleFunc(controls.x),
+            ]}
+            color={synthViolet}
+            label={functionNameLittle}
+            labelProportion={labelProportion}
+          />
+          <ThickStraightLine
+            start={[controls.x, 0, 0]}
+            end={[
+              controls.x,
+              yTransform * bigFunc(controls.x),
+              -zTransform * bigFunc(controls.x),
+            ]}
             color={synthPink}
-          /> */}
+            label={functionNameBig}
+            labelProportion={labelProportion}
+          />
         </>
       )}
 

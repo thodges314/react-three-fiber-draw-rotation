@@ -2,7 +2,14 @@ import { useEffect, useMemo, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Stats, CameraControls, Environment } from "@react-three/drei";
 import { useControls } from "leva";
-import { Axes, Disc, Drum, RotationObject, Washer } from "./components";
+import {
+  Axes,
+  Disc,
+  Drum,
+  RotationObject,
+  RotationObjectLine,
+  Washer,
+} from "./components";
 import { synthPink, synthViolet } from "./constants/colors";
 import {
   discMethod1,
@@ -53,6 +60,7 @@ const App = () => {
       />
       {/* <DisplayPanel /> */}
       {/* <RotationObject solid={discMethod1} threeDee={threeDee} />
+      <RotationObjectLine solid={discMethod1} />
       {drums && (
         <Drum
           solid={discMethod1}
@@ -69,45 +77,15 @@ const App = () => {
           functionName={threeDee ? "r=f(x)" : "f(x)"}
         />
       )} */}
-      {/* <RotationObject solid={washerMethod1} threeDee={threeDee} />
-      {drums && (
-        <Drum
-          solid={washerMethod1}
-          threeDee={threeDee}
-          labelProportion={labelProportion}
-          functionName={threeDee ? "r=g(x)" : "g(x)"}
-          displayTopLabel={false}
-        />
+
+      {threeDee && (
+        <>
+          <RotationObject solid={washerMethod1} />
+          <RotationObject solid={washerMethod2} />
+        </>
       )}
-      {discs && (
-        <Disc
-          solid={washerMethod1}
-          threeDee={threeDee}
-          labelProportion={labelProportion}
-          functionName={threeDee ? "r=g(x)" : "g(x)"}
-          displayTopLabel={false}
-          labelColor={synthViolet}
-        />
-      )}
-      <RotationObject solid={washerMethod2} threeDee={threeDee} />
-      {drums && (
-        <Drum
-          solid={washerMethod2}
-          threeDee={threeDee}
-          labelProportion={labelProportion}
-          functionName={threeDee ? "r=f(x)" : "f(x)"}
-        />
-      )}
-      {discs && (
-        <Disc
-          solid={washerMethod2}
-          threeDee={threeDee}
-          labelProportion={labelProportion}
-          functionName={threeDee ? "r=f(x)" : "f(x)"}
-        />
-      )} */}
-      <RotationObject solid={washerMethod1} threeDee={threeDee} />
-      <RotationObject solid={washerMethod2} threeDee={threeDee} />
+      <RotationObjectLine solid={washerMethod1} />
+      <RotationObjectLine solid={washerMethod2} />
       {discs && (
         <Washer
           solid={washerMethod}
