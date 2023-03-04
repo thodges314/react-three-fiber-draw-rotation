@@ -2,27 +2,24 @@ import { useMemo } from "react";
 import { useControls } from "leva";
 import { ThickStraightLine } from "../Lines";
 import RotationObject, { FlatIntegral } from "../RotationObject";
-import { CourierPrime } from "../Text";
 import { synthPink, synthViolet } from "../../constants/colors";
 import { darkPhongMaterial } from "../../materials";
 
 const Washer = ({
-  solid = {
-    domain: [0, 1],
-    bigFunc: (x) => x,
-    littleFunc: (x) => x,
-    resolution: 20,
+  solid: {
+    domain = [0, 1],
+    bigFunc = (x) => x,
+    littleFunc = (x) => x,
+    resolution = 20,
   },
   sides = 90,
   threeDee = true,
   labelProportion = 1,
   functionNameBig = "f(x)",
   functionNameLittle = "g(x)",
-  // displayTopLabel = false,
   labelColorBig = synthPink,
   labelColorLittle = synthViolet,
 }) => {
-  const { domain, bigFunc, littleFunc, resolution } = solid;
   const step = useMemo(() => 0.5 / resolution);
   const options = useMemo(
     () => ({
@@ -37,7 +34,6 @@ const Washer = ({
     []
   );
   const controls = useControls(options);
-  console.log(threeDee);
   const zTransform = 1 / 2;
   const yTransform = 3 ** (1 / 2) / 2;
   return (
@@ -134,19 +130,6 @@ const Washer = ({
           />
         </>
       )}
-      {/* {displayTopLabel && (
-        <CourierPrime
-          text="dx"
-          size={0.25 * labelProportion}
-          position={[
-            controls.x - 0.2 * labelProportion,
-            func(controls.x) + 0.4 * labelProportion,
-            0,
-          ]}
-          color={synthPink}
-          bold={true}
-        />
-      )} */}
     </>
   );
 };

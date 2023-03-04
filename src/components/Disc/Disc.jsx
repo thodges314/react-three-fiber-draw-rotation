@@ -7,11 +7,7 @@ import { synthPink } from "../../constants/colors";
 import { darkPhongMaterial } from "../../materials";
 
 const Disc = ({
-  solid = {
-    domain: [0, 1],
-    func: (x) => x,
-    resolution: 20,
-  },
+  solid: { domain = [0, 1], func = (x) => x, resolution = 20 },
   sides = 90,
   threeDee = true,
   labelProportion = 1,
@@ -19,7 +15,6 @@ const Disc = ({
   displayTopLabel = true,
   labelColor = synthPink,
 }) => {
-  const { domain, func, resolution } = solid;
   const step = useMemo(() => 0.5 / resolution);
   const options = useMemo(
     () => ({

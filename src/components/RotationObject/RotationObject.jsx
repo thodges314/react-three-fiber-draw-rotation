@@ -3,16 +3,11 @@ import { Vector2 } from "three";
 import { darkPhongMaterial, translucentNormalMaterial } from "../../materials";
 
 const RotationObject = ({
-  solid = {
-    domain: [0.1, 1],
-    func: (x) => x,
-    resolution: 10,
-  },
+  solid: { domain = [0.1, 1], func = (x) => x, resolution = 10 },
   sides = 90,
   normalMaterial = true,
 }) => {
   const points = useMemo(() => {
-    const { domain, func, resolution } = solid;
     const pts = [];
     const dx = 0.5 / resolution;
     for (let i = domain[0]; i < domain[1]; i += dx) {

@@ -2,21 +2,18 @@ import { useMemo } from "react";
 import { darkPhongMaterial } from "../../materials";
 
 const FlatIntegral = ({
-  solid = {
-    domain: [0.1, 1],
-    funcTop: (x) => x,
-    funcBottom: (_x) => 0,
-    resolution: 10,
+  solid: {
+    domain = [0.1, 1],
+    funcTop = (x) => x,
+    funcBottom = (_x) => 0,
+    resolution = 10,
   },
-  rightBound = solid.domain[1],
+  rightBound = domain[1],
 }) => {
-  const { domain } = solid;
   const dx = useMemo(() => {
-    const { resolution } = solid;
     return 0.1 / resolution;
   }, []);
   const shapes = useMemo(() => {
-    const { funcTop, funcBottom } = solid;
     const func = (x) => funcTop(x) - funcBottom(x);
     const shps = [];
     for (let i = domain[0]; i < domain[1]; i += dx) {

@@ -6,18 +6,13 @@ import { lightGrey, synthPink } from "../../constants/colors";
 import { darkPhongMaterial } from "../../materials";
 
 const Drum = ({
-  solid = {
-    domain: [0, 1],
-    func: (x) => x,
-    resolution: 10,
-  },
+  solid: { domain = [0, 1], func = (x) => x, resolution = 10 },
   sides = 90,
   threeDee = true,
   labelProportion = 1,
   functionName = "f(x)",
   displayTopLabel = true,
 }) => {
-  const { domain, func, resolution } = solid;
   const step = useMemo(() => 1 / resolution);
 
   const options = useMemo(

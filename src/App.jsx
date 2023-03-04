@@ -59,7 +59,7 @@ const App = () => {
         background
       />
       {/* <DisplayPanel /> */}
-      {/* <RotationObject solid={discMethod1} threeDee={threeDee} />
+      {/* {threeDee && <RotationObject solid={discMethod1} threeDee={threeDee} />}
       <RotationObjectLine solid={discMethod1} />
       {drums && (
         <Drum
@@ -77,7 +77,43 @@ const App = () => {
           functionName={threeDee ? "r=f(x)" : "f(x)"}
         />
       )} */}
-
+      {/* <RotationObject solid={washerMethod1} threeDee={threeDee} />
+      {drums && (
+        <Drum
+          solid={washerMethod1}
+          threeDee={threeDee}
+          labelProportion={labelProportion}
+          functionName={threeDee ? "r=g(x)" : "g(x)"}
+          displayTopLabel={false}
+        />
+      )}
+      {discs && (
+        <Disc
+          solid={washerMethod1}
+          threeDee={threeDee}
+          labelProportion={labelProportion}
+          functionName={threeDee ? "r=g(x)" : "g(x)"}
+          displayTopLabel={false}
+          labelColor={synthViolet}
+        />
+      )}
+      <RotationObject solid={washerMethod2} threeDee={threeDee} />
+      {drums && (
+        <Drum
+          solid={washerMethod2}
+          threeDee={threeDee}
+          labelProportion={labelProportion}
+          functionName={threeDee ? "r=f(x)" : "f(x)"}
+        />
+      )}
+      {discs && (
+        <Disc
+          solid={washerMethod2}
+          threeDee={threeDee}
+          labelProportion={labelProportion}
+          functionName={threeDee ? "r=f(x)" : "f(x)"}
+        />
+      )} */}
       {threeDee && (
         <>
           <RotationObject solid={washerMethod1} />
