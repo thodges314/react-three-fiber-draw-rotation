@@ -8,11 +8,14 @@ import {
   Drum,
   RotationObject,
   RotationObjectLine,
+  ThickStraightLine,
   Washer,
 } from "./components";
 import { synthPink, synthViolet } from "./constants/colors";
 import {
   discMethod1,
+  discMethodRaise,
+  discMethodRaiseView,
   discMethodView,
   washerMethod,
   washerMethod1,
@@ -32,16 +35,16 @@ const App = () => {
 
   const { discs, drums, threeDee } = useControls("display options", options);
   const cameraRef = useRef();
-  const { twoDView, threeDView, cameraPosition, axesLength, labelProportion } =
-    washerMethodView;
   // const { twoDView, threeDView, cameraPosition, axesLength, labelProportion } =
-  //   discMethodView;
+  //   washerMethodView;
+  const { twoDView, threeDView, cameraPosition, axesLength, labelProportion } =
+    discMethodRaiseView;
 
-  useEffect(() => {
-    // threeDee
-    //   ? cameraRef.current?.setTarget(...threeDView, true)
-    //   : cameraRef.current?.setTarget(...twoDView, true);
-  }, [threeDee, cameraRef, threeDView, twoDView]);
+  // useEffect(() => {
+  //   // threeDee
+  //   //   ? cameraRef.current?.setTarget(...threeDView, true)
+  //   //   : cameraRef.current?.setTarget(...twoDView, true);
+  // }, [threeDee, cameraRef, threeDView, twoDView]);
 
   useEffect(() => {
     window.setTimeout(
@@ -77,44 +80,23 @@ const App = () => {
           functionName={threeDee ? "r=f(x)" : "f(x)"}
         />
       )} */}
-      {/* <RotationObject solid={washerMethod1} threeDee={threeDee} />
-      {drums && (
-        <Drum
-          solid={washerMethod1}
-          threeDee={threeDee}
-          labelProportion={labelProportion}
-          functionName={threeDee ? "r=g(x)" : "g(x)"}
-          displayTopLabel={false}
-        />
-      )}
-      {discs && (
-        <Disc
-          solid={washerMethod1}
-          threeDee={threeDee}
-          labelProportion={labelProportion}
-          functionName={threeDee ? "r=g(x)" : "g(x)"}
-          displayTopLabel={false}
-          labelColor={synthViolet}
-        />
-      )}
-      <RotationObject solid={washerMethod2} threeDee={threeDee} />
-      {drums && (
-        <Drum
-          solid={washerMethod2}
-          threeDee={threeDee}
-          labelProportion={labelProportion}
-          functionName={threeDee ? "r=f(x)" : "f(x)"}
-        />
-      )}
-      {discs && (
-        <Disc
-          solid={washerMethod2}
-          threeDee={threeDee}
-          labelProportion={labelProportion}
-          functionName={threeDee ? "r=f(x)" : "f(x)"}
-        />
-      )} */}
-      {threeDee && (
+      <RotationObjectLine solid={discMethod1} />
+      <ThickStraightLine start={[-44, -1, 0]} end={[49, -1, 0]} />
+      <Disc
+        solid={discMethod1}
+        threeDee={threeDee}
+        labelProportion={labelProportion}
+        functionName={threeDee ? "r=f(x)" : "f(x)"}
+      />
+      <Disc
+        solid={discMethodRaise}
+        threeDee={threeDee}
+        labelProportion={labelProportion}
+        functionName={threeDee ? "1" : "1"}
+        displayTopLabel={false}
+      />
+
+      {/* {threeDee && (
         <>
           <RotationObject solid={washerMethod1} />
           <RotationObject solid={washerMethod2} />
@@ -128,7 +110,7 @@ const App = () => {
           labelProportion={labelProportion}
           threeDee={threeDee}
         />
-      )}
+      )} */}
 
       <CameraControls ref={cameraRef} />
       <Axes length={axesLength} labelProportion={labelProportion} />

@@ -13,6 +13,21 @@ const discMethodView = {
   labelProportion: 1,
 };
 
+const discMethodRaise = {
+  domain: [1, 4],
+  func: (_x) => -1,
+  intFunc: (_x) => 0,
+  resolution: 5,
+};
+
+const discMethodRaiseView = {
+  threeDView: [2, 0, 0],
+  twoDView: [2, 1, 0],
+  cameraPosition: [2.5, 0, 10],
+  axesLength: 6,
+  labelProportion: 1,
+};
+
 const washerMethod1 = {
   domain: [0, 1],
   func: (x) => x ** 2,
@@ -46,6 +61,8 @@ const washerMethodView = {
 
 export {
   discMethod1,
+  discMethodRaise,
+  discMethodRaiseView,
   discMethodView,
   washerMethod,
   washerMethod1,

@@ -1,5 +1,7 @@
 import {
   discMethod1,
+  discMethodRaise,
+  discMethodRaiseView,
   discMethodView,
   washerMethod,
   washerMethod1,
@@ -9,6 +11,8 @@ import {
 
 export {
   discMethod1,
+  discMethodRaise,
+  discMethodRaiseView,
   discMethodView,
   washerMethod,
   washerMethod1,
